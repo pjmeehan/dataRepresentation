@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<library>
+  <Technical>
+    <book>
+        <ISBN-13>978-0672338083</ISBN-13>
+        <ISBN-10>0672338083</ISBN-10>
+        <title>HTML,CSS AND JavaScript All in One</title>
+        <author>Julie C. Meloni and Jennifer Kyrnin</author>
+    </book> 
+    <book>
+        <ISBN-13>978-0735200661</ISBN-13>
+        <ISBN-10>0735200661</ISBN-10>
+        <title>Technical Analysis of the Financial Markets</title>
+        <author>John J. Murphy</author>
+    </book> 
+  </Technical>
+  <Cooking>
+    <book>
+        <ISBN-13>978-1785942853</ISBN-13>
+        <ISBN-10>1785942859</ISBN-10>
+        <title>The Science of Cooking: Every Question Answered to Perfect Your Cooking</title>
+        <author>Dr. Stuart Farrimond</author>
+    </book> 
+    <book>
+        <ISBN-13>978-0672338083</ISBN-13>
+        <ISBN-10>0672338083</ISBN-10>
+        <title>Eat Well for Less: Quick and Easy Meals</title>
+        <author>Jo Scarratt-Jones</author>
+    </book> 
+  </Cooking>
+</library>
+
+
