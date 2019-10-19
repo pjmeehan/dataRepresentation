@@ -4,7 +4,7 @@
 import requests
 from bs4 import BeautifulSoup
 
-with open("../dataRepresentation/Lab2.html") as fp:
+with open("../dataRepresentation/carviewer2.html") as fp:
 	soup = BeautifulSoup(fp, 'html.parser')
 
 #print(soup.tr)
