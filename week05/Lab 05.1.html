@@ -1,0 +1,18 @@
+1. curl.google.command
+
+2. curl -i google.command
+
+3a. curl -i http://dummy.restapiexample.com/api/v1/employees
+
+3b. curl -i http://dummy.restapiexample.com/api/v1/employee/2202
+
+4. curl -X DELETE http://dummy.restapiexample.com/api/v1/employee/2202
+
+5a. curl -i -H "Content-Type:application/json" -X PUT -d '{"name":"patrick":,"salary":"1123","age":"23"}' http://dummy.restapiexample.com/api/v1/update/2201
+
+5b. curl -i -H "Content-Type:application/json" -X PUT -d '{\"name\":\"patrick\":,\"salary\":\"1123\",\"age\":\"23\"}' http://dummy.restapiexample.com/api/v1/update/2201
+
+6a. curl -d '{"name":"patrick":,"salary":"1123","age":"23"}' -H 'Content-Type:application/json' -X PUT http://dummy.restapiexample.com/api/v1/update/2202
+
+6b. curl -d '{\"name\":\"patrick\":,\"salary\":\"1123\",\"age\":\"23\"}' -H 'Content-Type:application/json' -X PUT http://dummy.restapiexample.com/api/v1/update/2202
+

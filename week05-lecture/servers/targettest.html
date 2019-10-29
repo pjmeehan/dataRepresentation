@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>View Cars</title>
+</head>
+<body>
+	<button onclick="getall()">go</button>
+	
+	<script>
+		function getall() {
+			$.ajax({
+				url: "cars",
+				method: "GET",
+				data:"",
+				success: function(result){
+					//console.log(result);
+					for (car of result.cars){
+						console.log(car);
+					}
+				},		
+				error: function(xhr,status,error){
+					console.log("error "+status+ msg:"+error);
+				}
+			})
+		}
+
+	</script>
+
+
+
+</body>
+</html>
