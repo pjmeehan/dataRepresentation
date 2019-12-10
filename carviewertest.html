@@ -1,0 +1,177 @@
+<html>
+    <head>
+        <title> view Goods</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    </head>
+    <body>
+        <h1>Goods</h1>
+        <div> <button id="showCreateButton" onclick="showCreate()">Create</button></div>
+        <div>
+            <table class="table" id="goodTable">
+                <tr>
+                        <th>StockNumber</th>
+                        <th>Name</th>
+                        <th>Flavor</th>
+                        <th>Price</th>
+                        <th>Update</th>
+                        <th>Delete</th>
+                </tr>
+                <tr id="01">
+                        <td>01</td>
+                        <td>Bread</td>
+                        <td>Ginger</td>
+                        <td>€5.00</td>
+                        <td><button onclick="showUpdate(this)">Update</button></td>
+                        <td><button onclick="doDelete(this)">Delete</button></td>
+                            
+                </tr>
+                <tr id="02">
+                    <td>02</td>
+                    <td>Tart</td>
+                    <td>Apple</td>
+                    <td>€6.00</td>
+                    <td><button onclick="showUpdate(this)">Update</button></td>
+                    <td><button onclick="doDelete(this)">Delete</button></td>
+                    
+                </tr>
+                <tr id="03"> 
+                    <td>03</td>
+                    <td>Scone</td>
+                    <td>Plain</td>
+                    <td>€1.00</td>
+                    <td><button onclick="showUpdate(this)">Update</button></td>
+                    <td><button onclick="doDelete(this)">Delete</button></td>
+                        
+                </tr>
+    
+            </table>
+        </div>
+        <div id='createUpdateForm' style="display: none">
+                <h2><span id="createLabel">Create a</span> <span id="updateLabel">Update</span> Good</h2>
+                StockNumber <input type="text" name="sn"/> <br/>
+                Name <select name="name">
+                        <option value="Bread">Bread</option>
+                        <option value="Tart">Tart</option>
+                        <option value="Scone">Scone</option>
+                </select> <br/>
+                Flavor <input type="text" name="flavor"/> <br/>
+                Price <input type="number" name="price"/> <br/>
+                <span><button id="doCreateButton" onclick="doCreate()">Create</button></span>
+                <span><button id="doUpdateButton" onclick="doUpdate()">Update</button></span>
+        </div>
+    </body>
+    <script>
+    function showCreate(){
+        document.getElementById('showCreateButton').style.display="none"
+        document.getElementById('goodTable').style.display="none"
+        document.getElementById('createUpdateForm').style.display="block"
+        document.getElementById('createLabel').style.display="inline"
+        document.getElementById('updateLabel').style.display="none"
+        document.getElementById('doCreateButton').style.display="block"
+        document.getElementById('doUpdateButton').style.display="none"
+    }
+    function showViewAll(){
+        document.getElementById('showCreateButton').style.display="block"
+        document.getElementById('goodTable').style.display="block"
+        document.getElementById('createUpdateForm').style.display="none"
+    }
+    function showUpdate(buttonElement){
+        document.getElementById('showCreateButton').style.display="none"
+        document.getElementById('goodTable').style.display="none"
+        document.getElementById('createUpdateForm').style.display="block"
+        document.getElementById('createLabel').style.display="none"
+        document.getElementById('updateLabel').style.display="inline"
+        document.getElementById('doCreateButton').style.display="none"
+        document.getElementById('doUpdateButton').style.display="block"
+        var rowElement = buttonElement.parentNode.parentNode
+        // these is a way of finding the closest <tr> which would safer, closest()
+        
+        var good = getGoodFromRow(rowElement)
+        populateFormWithGood(good)
+    }
+    function doCreate(){
+        var form = document.getElementById('createUpdateForm')
+        var good = {}
+        good.sn = form.querySelector('input[name="stocknumber"]').value
+        good.name = form.querySelector('select[name="name"]').value
+        good.flavor = form.querySelector('input[name="flavor"]').value
+        good.price = form.querySelector('input[name="price"]').value
+        console.log(JSON.stringify(good))
+        addGoodToTable(good)
+        clearForm()
+        
+        showViewAll()
+    }
+    function doUpdate(){
+        var good = getGoodFromForm();
+        var rowElement = document.getElementById(good.sn)
+        setGoodInRow(rowElement,good)
+       
+        clearForm()
+        showViewAll()
+    }
+    function doDelete(r){
+        var tableElement = document.getElementById('goodTable')
+        var index = r.parentNode.parentNode.rowIndex;
+        tableElement.deleteRow(index);
+    }
+    function addGoodToTable(good){
+        var tableElement = document.getElementById('goodTable')
+        var rowElement = tableElement.insertRow(-1)
+        rowElement.setAttribute('stocknumber',good.sn)
+        var cell1 = rowElement.insertCell(0);
+        cell1.innerHTML = good.sn
+        var cell2 = rowElement.insertCell(1);
+        cell2.innerHTML = good.name
+        var cell3 = rowElement.insertCell(2);
+        cell3.innerHTML = good.flavor
+        var cell4 = rowElement.insertCell(3);
+        cell4.innerHTML = good.price
+        var cell5 = rowElement.insertCell(4);
+        cell5.innerHTML = '<button onclick="showUpdate(this)">Update</button>'
+        var cell6 = rowElement.insertCell(5);
+        cell6.innerHTML = '<button onclick=doDelete(this)>delete</button>'
+    }
+    function clearForm(){
+        var form = document.getElementById('createUpdateForm')
+        form.querySelector('input[name="stocknumber"]').disabled = false
+        form.querySelector('input[name="stocknumber"]').value  =''
+        form.querySelector('select[name="name"]').value=''
+        form.querySelector('input[name="flavor"]').value=''
+        form.querySelector('input[name="price"]').value=''
+    }
+    function getGoodFromRow(rowElement){
+        var good ={}
+        good.sn  = rowElement.cells[0].firstChild.textContent
+        good.name = rowElement.cells[1].firstChild.textContent
+        good.flavor = rowElement.cells[2].firstChild.textContent
+        good.price = rowElement.cells[3].firstChild.textContent
+        return good
+    }
+    function setGoodInRow(rowElement, good){
+        rowElement.cells[0].firstChild.textContent= good.sn
+        rowElement.cells[2].firstChild.textContent= good.flavor
+        rowElement.cells[3].firstChild.textContent= good.price
+    }
+    function populateFormWithGood(good){
+        var form = document.getElementById('createUpdateForm')
+        form.querySelector('input[name="stocknumber]').disabled = true
+        form.querySelector('input[name="stocknumber"]').value  = good.sn
+        form.querySelector('select[name="name"]').value= good.name
+        form.querySelector('input[name="flavor"]').value= good.flavor
+        form.querySelector('input[name="price"]').value= good.price
+        return good
+    }
+    function getGoodFromForm(){
+        var form = document.getElementById('createUpdateForm')
+        var good = {}
+        good.sn = form.querySelector('input[name="stocknumber"]').value
+        good.name = form.querySelector('select[name="name"]').value
+        good.flavor = form.querySelector('input[name="flavor"]').value
+        good.price = form.querySelector('input[name="price"]').value
+        console.log(JSON.stringify(good))
+        return good
+    }
+    
+    </script>
+</html>
